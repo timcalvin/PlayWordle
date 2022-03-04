@@ -6,11 +6,29 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct ContentView: View {
+    
+    let urlString = "https://www.nytimes.com/games/wordle/index.html"
+    let webView = WKWebView()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        WordleView(url: URL(string: urlString)!)
+    }
+}
+
+struct WordleView: UIViewRepresentable {
+    
+    var url: URL
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        let request = URLRequest(url: url)
+        uiView.load(request)
     }
 }
 
